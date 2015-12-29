@@ -1,5 +1,5 @@
 /***************************************************************************
- *  Copyright (C) 2010  Philipp Nordhus                                    *
+ *  Copyright (C) 2015  Philipp Nordhus                                    *
  *                                                                         *
  *  This program is free software: you can redistribute it and/or modify   *
  *  it under the terms of the GNU General Public License as published by   *
@@ -15,31 +15,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
  ***************************************************************************/
 
-#ifndef FIGHT_MODULEMANAGER_H
-#define FIGHT_MODULEMANAGER_H
+#ifndef UTIL_DEBUG_H
+#define UTIL_DEBUG_H
 
-#include "module.h"
+#include <iostream>
 
-#include <map>
-#include <QString>
+namespace util {
 
-namespace gfx { class TextureManager; }
-
-namespace fight {
-
-class ModuleManager
+class Debug
 {
 public:
-    ModuleManager(gfx::TextureManager &texMan);
-
-public:
-    Module* get(const QString &name);
-
-private:
-    gfx::TextureManager &m_textureManager;
-    std::map<QString, Module> m_modules;
+    ~Debug() {
+        std::cerr << std::endl;
+    }
 };
 
-} // namespace fight
+template <typename T>
+Debug&& operator << (Debug &&debug, T &&t) {
+    std::cerr << std::forward<T>(t);
+    return std::move(debug);
+}
 
-#endif // FIGHT_MODULEMANAGER_H
+} // namespace util
+
+#endif // UTIL_DEBUG_H
