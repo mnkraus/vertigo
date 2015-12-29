@@ -30,7 +30,12 @@ template<typename T>
 class Rectangle
 {
 public:
-    Rectangle() /*: x(0), y(0), width(0), height(0)*/ { };
+#ifdef GLM_FORCE_NO_CTOR_INIT
+    Rectangle() = default;
+#else
+    Rectangle() : posTest(), sizeTest() { };
+#endif
+    //Rectangle() /*: x(0), y(0), width(0), height(0)*/ { };
     Rectangle(T x, T y, T width, T height) : /*x(x), y(y),*/ posTest(x, y), /*width(width), height(height)*/ sizeTest(width, height) { };
     //Rectangle(const glm::tvec2<T> &pos, const glm::tvec2<T> &size) : x(pos.x), y(pos.y), width(size.x), height(size.y) { };
     Rectangle(const glm::tvec2<T> &pos, const Size2D<T> &size) : x(pos.x), y(pos.y), width(size.width), height(size.height) { };

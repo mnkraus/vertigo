@@ -29,7 +29,7 @@ template<typename T, glm::precision P = glm::defaultp>
 class Size2D
 {
 public:
-#if GLM_FORCE_NO_CTOR_INIT
+#ifdef GLM_FORCE_NO_CTOR_INIT
     Size2D() = default;
 #else
     Size2D() : width(0), height(0) { };
