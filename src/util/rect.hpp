@@ -34,10 +34,16 @@ public:
     Rectangle() = default;
 #else
     Rectangle() : posTest(), sizeTest() { };
+    Rectangle(const Rectangle<T> &r) : posTest(r.posTest), sizeTest(r.sizeTest) { };
+    Rectangle<T>& operator = (const Rectangle<T> &r)
+    {
+        posTest = r.posTest;
+        sizeTest = r.sizeTest;
+        return *this;
+    }
 #endif
-    //Rectangle() /*: x(0), y(0), width(0), height(0)*/ { };
-    Rectangle(T x, T y, T width, T height) : /*x(x), y(y),*/ posTest(x, y), /*width(width), height(height)*/ sizeTest(width, height) { };
-    //Rectangle(const glm::tvec2<T> &pos, const glm::tvec2<T> &size) : x(pos.x), y(pos.y), width(size.x), height(size.y) { };
+
+    Rectangle(T x, T y, T width, T height) : posTest(x, y), sizeTest(width, height) { };
     Rectangle(const glm::tvec2<T> &pos, const Size2D<T> &size) : x(pos.x), y(pos.y), width(size.width), height(size.height) { };
 
 public:
@@ -53,10 +59,10 @@ public:
 public:
     union
     {
-        struct
-        {
+        //struct
+        //{
             glm::tvec2<T> posTest;
-        };
+        //};
         struct
         {
             T x;
@@ -65,10 +71,10 @@ public:
     };
     union
     {
-        struct
-        {
+        //struct
+        //{
            Size2D<T> sizeTest;
-        };
+        //};
         struct
         {
             T width;
@@ -82,7 +88,7 @@ template<typename T>
 class RectangleExclusive : public Rectangle<T>
 {
 public:
-    //using Rectangle<T>::Rectangle<T>;
+    //using Rectangle<T>::Rectangle;
     RectangleExclusive() = default;
     RectangleExclusive(T x, T y, T width, T height) : Rectangle<T>(x, y, width, height) { };
     RectangleExclusive(const glm::tvec2<T> &pos, const Size2D<T> &size) : Rectangle<T>(pos, size) { };
@@ -106,7 +112,7 @@ template<typename T>
 class RectangleInclusive : public Rectangle<T>
 {
 public:
-    //using Rectangle<T>::Rectangle<T>;
+    //using Rectangle<T>::Rectangle;
     RectangleInclusive() = default;
     RectangleInclusive(T x, T y, T width, T height) : Rectangle<T>(x, y, width, height) { };
     RectangleInclusive(const glm::tvec2<T> &pos, const Size2D<T> &size) : Rectangle<T>(pos, size) { };

@@ -441,7 +441,7 @@ void Scenario::draw()
     }
 
     glEnable(GL_FOG);
-    GLfloat fogColor[4] = {0.0, 0.0, 0.15, 1.0};
+    GLfloat fogColor[4] = {0.0f, 0.0f, 0.15f, 1.0f};
     glFogi(GL_FOG_MODE, GL_LINEAR);
     glFogfv(GL_FOG_COLOR, fogColor);
     glHint(GL_FOG_HINT, GL_FASTEST);
